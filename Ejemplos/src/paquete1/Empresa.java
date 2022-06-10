@@ -10,23 +10,82 @@ package paquete1;
  * @author reroes
  */
 public class Empresa {
+
     private String nombre;
-    private Edificio [] edificios;
+    private Edificio[] edificios;
     private double costoBienesInmuebles;
-    
-    public void establecerNombre(String m){
+    private Vehiculo[] vehiculos;
+    private double costoVehiculos;
+    private double costoTotalBienes;
+
+    public void establecerNombre(String m) {
         nombre = m;
     }
-    
-    public void establecerEdificios(Edificio[] m){
+
+    public void establecerEdificios(Edificio[] m) {
         edificios = m;
     }
-    
-    public String obtenerNombre(){
+
+    public void establecerCostoBienesInmuebles() {
+        double suma = 0;
+        for (int i = 0; i < edificios.length; i++) {
+            suma += edificios[i].obtenerCosto();
+
+        }
+        costoBienesInmuebles = suma;
+
+    }
+
+    public void establecerCostoVehiculos(double a) {
+        double suma = 0;
+        for (int i = 0; i < vehiculos.length; i++) {
+            suma += vehiculos[i].obtenerValor();
+
+        }
+        costoVehiculos = suma;
+
+    }
+
+    public void establecerCostoTotalBienes(double a) {
+        costoTotalBienes = costoBienesInmuebles + costoVehiculos;
+    }
+
+    public String obtenerNombre() {
         return nombre;
     }
-    
-    public Edificio[] obtenerEdificios(){
+
+    public Edificio[] obtenerEdificios() {
         return edificios;
     }
+
+    public double obtenerCostoBienesInmuebles() {
+        return costoBienesInmuebles;
+    }
+
+    public double obtenerCostoVehiculos() {
+        return costoVehiculos;
+    }
+
+    public double obtenerCostoTotalBienes() {
+        return costoTotalBienes;
+    }
+
+    @Override
+    public String toString() {
+        String cadena = String.format("%s\nLista de Edificios\n", nombre);
+        for (int i = 0; i < edificios.length; i++) {
+            cadena = String.format("%s%d. %s (%.1f)\n", cadena,
+                    i + 1,
+                    edificios[i].obtenerNombre().toUpperCase(),
+                    edificios[i].obtenerCosto());
+            
+            cadena = String.format("");
+        }
+        cadena = String.format("%sTotal de inmuebles: %.1f\n",
+                cadena,
+                obtenerCostoBienesInmuebles());
+        // cadena += "Total inmuebles: " + obtenerCostoBienesInmuebles(); 
+        return cadena;
+    }
+
 }
